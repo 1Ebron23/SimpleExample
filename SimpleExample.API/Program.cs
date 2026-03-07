@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SimpleExample.Application.Interfaces;
 using SimpleExample.Application.Services;
 using SimpleExample.Infrastructure.Data;

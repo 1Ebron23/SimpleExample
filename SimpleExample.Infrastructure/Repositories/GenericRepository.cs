@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SimpleExample.Application.Interfaces;
 using SimpleExample.Domain.Entities;
 using SimpleExample.Infrastructure.Data;
@@ -28,13 +28,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<T> AddAsync(T entity)
     {
+        // EI aseteta Id:ta, FirstName, LastName, Email - entity on jo validi!
         entity.Id = Guid.NewGuid();
         entity.CreatedAt = DateTime.UtcNow;
         entity.UpdatedAt = DateTime.UtcNow;
-        
+
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
-        
+
         return entity;
     }
 
