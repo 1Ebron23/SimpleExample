@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using SimpleExample.Application.DTOs;
 using SimpleExample.Domain.Entities;
 using Xunit;
 
@@ -151,4 +152,7 @@ public class UserTests
         act.Should().Throw<ArgumentException>()
            .WithMessage("*Sahkopostin tulee olla kelvollinen*");
     }
+
+    
 }
+
