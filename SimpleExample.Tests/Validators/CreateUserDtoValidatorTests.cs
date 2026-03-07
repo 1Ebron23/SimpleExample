@@ -26,9 +26,8 @@ namespace SimpleExample.Tests.Validators
         {
             CreateUserDto dto = new CreateUserDto { FirstName = "", LastName = "Meikäläinen", Email = "test@test.com" };
             var result = _validator.TestValidate(dto);
-
-            // VÄÄRÄ ODOTUS - testi epäonnistuu!
-            result.ShouldNotHaveAnyValidationErrors();
+            result.ShouldHaveValidationErrorFor(x => x.FirstName)
+                  .WithErrorMessage("Etunimi on pakollinen");
         }
     }
 
