@@ -52,8 +52,8 @@ public class UsersController : ControllerBase
 
         try
         {
-            UserDto user = await _userService.CreateAsync(createUserDto);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+            UserDto? user = await _userService.CreateAsync(createUserDto);
+            return CreatedAtAction(nameof(GetById), new { id = user!.Id }, user);
         }
         catch (ArgumentException ex)
         {

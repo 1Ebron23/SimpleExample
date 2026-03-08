@@ -1,0 +1,24 @@
+:: Tarkista Azure CLI -versio
+az --version   // näyttää asennetun Azure CLI -version
+
+:: Kirjaudu Azureen
+az login       // avaa selaimen ja kirjautuu sisään
+
+:: Aseta muuttujat
+set resourceGroup=opetusTestiii_group-a96b
+set appServiceName=opetusTestiii
+
+:: Näytä App Servicen URL
+az webapp show --name %appServiceName% --resource-group %resourceGroup% --query defaultHostName
+
+:: Julkaise .NET API (Release build)
+dotnet publish SimpleExample.API\SimpleExample.API.csproj --configuration Release --output .\publish
+
+:: Pura vanha zip jos olemassa
+del app.zip
+
+:: Pakkaa julkaistu sovellus ZIP-tiedostoksi
+PowerShell -command "Compress-Archive -Path .\publish\* -DestinationPath .\app.zip -Force"
+
+:: Näytä ZIP-tiedoston koko megatavuina
+PowerShell -command "(Get-Item 'app.zip').Length / 1MB"
