@@ -24,9 +24,9 @@ namespace SimpleExample.Application.Validators
                 .MaximumLength(100).WithMessage("Sukunimi voi olla enintaan 100 merkkia pitka.");
 
             RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("Sahköposti  on pakollinen.")
-                .EmailAddress().WithMessage("Sahköpostin tulee olla kelvollinen.")
-                .MaximumLength(255).WithMessage("Sahköposti voi olla enintaan 255 merkkia pitka.");
+                .NotEmpty().WithMessage("Sahkoposti  on pakollinen.")
+                .EmailAddress().WithMessage("Sahkopostin tulee olla kelvollinen.")
+                .MaximumLength(255).WithMessage("Sahkoposti voi olla enintaan 255 merkkia pitka.");
         }
     }
 

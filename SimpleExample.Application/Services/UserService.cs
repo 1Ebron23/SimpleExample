@@ -1,4 +1,4 @@
-using SimpleExample.Application.DTOs;
+﻿using SimpleExample.Application.DTOs;
 using SimpleExample.Application.Interfaces;
 using SimpleExample.Domain.Entities;
 
@@ -27,7 +27,14 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateAsync(CreateUserDto createUserDto)
     {
-        // Konstruktori validoi automaattisesti!
+        // APPLICATION LAYER VALIDOINTI: Tarkista duplikaatti
+        User? existingUser = await _userRepository.GetByEmailAsync(createUserDto.Email);
+        if (existingUser != null)
+        {
+            throw new InvalidOperationException($"Kayttaja sahkopostilla {createUserDto.Email} on jo olemassa");
+        }
+
+        // DOMAIN LAYER VALIDOINTI: Konstruktori validoi automaattisesti
         User user = new User(
             createUserDto.FirstName,
             createUserDto.LastName,
@@ -45,6 +52,13 @@ public class UserService : IUserService
         {
             return null;
         }
+
+        var other = await _userRepository.GetByEmailAsync(updateUserDto.Email);
+        if (other != null && other.Id != id)
+        {
+            throw new InvalidOperationException("Email already in use");
+        }
+
 
         // UpdateBasicInfo ja UpdateEmail validoivat automaattisesti!
         user.UpdateBasicInfo(updateUserDto.FirstName, updateUserDto.LastName);
